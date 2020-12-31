@@ -1,0 +1,22 @@
+extends _layout
+
+block append body
+  table
+    thead
+      tr
+        td URL
+        td Tags
+        td Created At
+        td Updated At
+    tbody
+      each item in items
+        tr
+          td
+            a(href=item.url target="_blank")=item.url
+          td
+            ul
+              each tag in item.tags
+                li
+                  a(href="tags/" + tag.name).tag=tag.name
+          td=item.createdAt.toLocaleString()
+          td=item.updatedAt.toLocaleString()

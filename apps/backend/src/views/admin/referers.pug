@@ -4,19 +4,37 @@ block append body
   table
     thead
       tr
+        td ID
+        td Name
+        td Type
+        td Title
+        td Description
         td URL
+        td Locale
         td Tags
+        td Status
+        td Published
+        td Modified
         td Created At
         td Updated At
     tbody
       each item in items
         tr
+          td=item.id
+          td=item.name
+          td=item.type
+          td=item.title
+          td=item.description
           td
             a(href=item.url target="_blank")=item.url
+          td=item.locale
           td
             ul
               each tag in item.tags
                 li
                   a(href="tags/" + tag.name).tag=tag.name
+          td=item.status
+          td=item.publishedAt? item.publishedAt.toLocaleString() : ''
+          td=item.modifiedAt? item.modifiedAt.toLocaleString() : ''
           td=item.createdAt.toLocaleString()
           td=item.updatedAt.toLocaleString()

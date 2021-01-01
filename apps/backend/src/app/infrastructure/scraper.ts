@@ -16,7 +16,7 @@ export const scrape = async (url: string) => {
     locale: getMetaContent('og:locale'),
     type: getMetaContent('og:type'),
     // url: getMetaContent('og:url'),
-    image: getMetaContent('og:image'),
+    image: getMetaContent('og:image') || getMetaContent('og:image:url'),
     name: getMetaContent('og:site_name'),
     publishedAt: getMetaContent('article:published_time'),
     modifiedAt: getMetaContent('article:modified_time'),

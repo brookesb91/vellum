@@ -1,0 +1,17 @@
+extends _layout
+
+block append body
+  table
+    thead
+      tr
+        td ID
+        td Name
+        td Created At
+        td Updated At
+    tbody
+      each item in items
+        tr
+          td=item.id
+          td=item.name
+          td=item.createdAt.toLocaleString()
+          td=item.updatedAt.toLocaleString()

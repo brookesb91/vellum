@@ -1,18 +1,15 @@
 import { Request, Response } from 'express';
-import slugify from 'slugify';
 
 import { Tag, TagDocument } from '../models/tag';
 import { Referer } from '../models/referer';
-import { scrape } from '../infrastructure/scraper';
+import { parseTags } from '../infrastructure/parse-tags';
 
 export const embed = async (req: Request, res: Response) => {
   if (typeof req.query['tags'] !== 'string') {
     return res.sendStatus(422);
   }
 
-  const parsedTags = [
-    ...req.query['tags'].match(/\b[a-zA-Z0-9\-\s]{2,}/g),
-  ].map((t) => slugify(t));
+  const parsedTags = parseTags(req.query['tags']);
 
   if (!parsedTags.length) {
     return res.sendStatus(422);
@@ -32,20 +29,22 @@ export const embed = async (req: Request, res: Response) => {
     tags.push(tag);
   }
 
+  const url = req.headers['referer'];
+
+  let referer = await Referer.findOne({
+    url,
+  });
+
+  if (!referer) {
+    referer = new Referer({ url });
+  }
+
   if (tags.length) {
-    const referer = req.headers['referer'];
+    referer.tags = tags.map((x) => x.id);
+  }
 
-    let ref = await Referer.findOne({
-      url: referer,
-    });
-
-    if (!ref) {
-      ref = new Referer({ url: referer });
-    }
-
-    ref.tags = tags.map((x) => x.id);
-
-    await ref.save();
+  if (referer.isNew || referer.isModified()) {
+    await referer.save();
   }
 
   return res.render('embed', {

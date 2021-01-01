@@ -3,7 +3,6 @@ import * as mongoose from 'mongoose';
 export interface TagModel {
   id?: string;
   name: string;
-  tags?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }

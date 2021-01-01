@@ -18,7 +18,8 @@
             "tsConfig": "apps/backend/tsconfig.app.json",
             "assets": [
               "apps/backend/src/assets",
-              "apps/backend/src/views"
+              "apps/backend/src/views",
+              "apps/backend/src/public"
             ]
           },
           "configurations": {

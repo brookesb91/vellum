@@ -11,7 +11,6 @@ export interface RefererModel {
   type?: string;
   image?: string;
   name?: string;
-  referer: string;
   tags?: string[];
   status?: string;
   publishedAt?: string;
@@ -31,7 +30,6 @@ const refererSchema = new mongoose.Schema<RefererDocument>(
     url: { type: String },
     image: { type: String },
     name: { type: String },
-    referer: { type: mongoose.Schema.Types.ObjectId, ref: 'Referer' },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
     modifiedAt: { type: Date },
     publishedAt: { type: Date },

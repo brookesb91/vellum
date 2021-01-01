@@ -1,8 +1,3 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
@@ -16,7 +11,10 @@ app.set('views', path.resolve(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.static(path.resolve(__dirname, 'public')));
+
 app.use(router);
+
 app.get('/test', (req, res) => res.render('test'));
 
 const port = process.env.port || 8080;

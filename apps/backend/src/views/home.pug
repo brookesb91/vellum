@@ -1,31 +1,61 @@
 include components/tags
 
-+tags(tags)
+
 
 style.
+
+  header {
+    z-index: 50;
+    position: sticky;
+    top: 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  header a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700;
+  }
+
+  .container {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
   .items {
+    --item-min-width: 300px;
+    margin: 0;
+    padding: 0;
     list-style: none;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-gap: 1rem;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, minmax(var(--item-min-width), 1fr));
+  }
+
+  @media screen and (min-width: 1200px) {
+    .items {
+      --item-min-width: 400px;
+    }
   }
 
   .items .item {
-    padding: 1rem;
+    background: #ecf0f3;
+    box-shadow: 4px 4px 4px 0px rgba(0,0,0,0.1);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    min-width: 300px;
-    max-width: 400px;
-    height: 100%;
   }
 
   .item .item-image {
     position: relative;
-    padding-top: 100%;
+    z-index: 0;
+    padding-top: 56.25%
   }
 
   .item .item-image img {
@@ -37,16 +67,41 @@ style.
     display: block;
     width: 100%;
     object-fit: cover;
+    background: #111;
   }
 
-ul.items
-  each item in items
-    li.item
-      a(href=item.url)
-        .item-image
-          img(src=item.image)
-        h4.item-title=item.title
-        p.item-subtitle=item.description
-      footer
-        .item-tags
-          +tags(item.tags)
+  .item .item-body, .item footer {
+    padding: 1rem;
+  }
+
+  .item .item-title, .item .item-description {
+    margin: 0;
+  }
+
+  .item a {
+    color: inherit;
+    display: block;
+    flex: 1;
+    text-decoration: none;
+  }
+
+header
+  .container
+    a(href="/") Vellum
+
+.container
+  +tags(tags)
+
+.container
+  ul.items
+    each item in items
+      li.item
+        a(href=item.url target="_blank")
+          .item-image
+            img(src=item.image)
+          .item-body
+            h3.item-title=item.title
+            p.item-description=item.description
+        footer
+          .item-tags
+            +tags(item.tags)

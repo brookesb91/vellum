@@ -2,6 +2,18 @@ if styles
   link(rel="stylesheet", href=styles)
 else
   style.
+    :root {
+      --tags-gutter: 0.5rem;
+      --tag-background: #333;
+      --tag-color: #fff;
+      --tag-hover-background: var(--tag-color);
+      --tag-hover-color: var(--tag-background);
+      --tag-padding: 0.5rem 0.75rem;
+      --tag-font-size: 0.825rem;
+      --tag-line-height: 0.825rem;
+      --tag-font-weight: bold;
+    }
+
     .tags {
       display: flex;
       flex-direction: row;
@@ -10,30 +22,30 @@ else
     }
 
     .tags .tag:not(:only-child):not(:last-child){
-      margin-right: 0.5rem;
+      margin-right: var(--tags-gutter);
     }
 
     .tags .tag {
-      font-weight: bold;
-      transition: all .3s;
       cursor: pointer;
       display: flex;
       align-items: center;
-      font-size: 0.825rem;
-      line-height: 0.825rem;
-      padding: 0.5rem 0.75rem;
-      color: white;
-      background: black;
-      margin-bottom: 0.5rem;
+      transition: all 0.3s;
+      font-weight: var(--tag-font-weight);
+      font-size: var(--tag-font-size);
+      line-height: var(--tag-line-height);
+      padding: var(--tag-padding);
+      color: var(--tag-color);
+      background: var(--tag-background);
+      margin-bottom: var(--tags-gutter);
     }
 
     .tags .tag:hover {
-      color: black;
-      background: #fff;
+      color: var(--tag-hover-color);
+      background: var(--tag-hover-background);
     }
 
 mixin tags(tags)
   .tags
-    each tag in tags
-      .tag
-        span=tag.name
+    each item in tags
+      .tag(class=tag ? (item.name === tag.name ? 'active' : '') : '')
+        span=item.name

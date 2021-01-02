@@ -4,7 +4,10 @@ block append body
   include components/tags
   include components/feed
   include components/header
+
+  //- Tags
   .container
     +tags(tags)
 
+  //- Feed
   +feed(items)

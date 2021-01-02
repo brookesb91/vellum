@@ -11,6 +11,9 @@ style.
     --item-box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
     --item-title-color: #000;
     --item-description-color: #000;
+    --item-name-color: #000;
+    --item-url-host-color: #333;
+    --item-url-path-color: #999;
     --item-image-ratio: 56.25%;
     --item-image-fit: cover;
     --item-padding: 1rem;
@@ -20,6 +23,8 @@ style.
     --item-background: #222;
     --item-title-color: #fff;
     --item-description-color: #ecf0f3;
+    --item-name-color: #ecf0f3;
+    --item-url-host-color: #fff;
   }
 
   .items {
@@ -94,6 +99,55 @@ style.
     margin: 0;
   }
 
+  .item-meta, .item-meta > * {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .item-meta {
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .item-meta > *:not(:last-child)::after {
+    content:"\00b7";
+    margin: 0 0.25rem;
+  }
+
+  .item-meta .item-name {
+    color: var(--item-name-color);
+    margin: 0;
+  }
+
+  .item-meta .item-favicon {
+    margin-right: 0.5rem;
+  }
+
+  .item-meta .item-favicon img {
+    height: 16px;
+    width: auto;
+  }
+
+  .item-meta .item-url {
+    font-family: monospace;
+  }
+
+  .item-meta .item-url .item-host {
+    color: var(--item-url-host-color);
+  }
+
+  .item-meta .item-url .item-path {
+    color: var(--item-url-path-color);
+  }
+
+  .item-meta .item-secure svg {
+    color: #10c15c;
+    fill: currentColor;
+  }
+
 mixin feed(items)
   .container
     .items
@@ -106,6 +160,19 @@ mixin feed-item(item)
       .item-image
         img(src=item.image)
       .item-body
+        .item-meta
+          span
+            span.item-favicon
+              img(src="https://" + new URL(item.url).host + "/favicon.ico")
+            span.item-name=item.name
+          span.item-url
+            if new URL(item.url).protocol === 'https:'
+              span.item-secure
+                i(data-eva="lock" data-eva-height="14")
+            span.item-host=new URL(item.url).host
+            - var pathname = new URL(item.url).pathname
+            if pathname && pathname !== '/'
+              span.item-path=new URL(item.url).pathname
         h3.item-title=item.title
         p.item-description=item.description
     .item-footer

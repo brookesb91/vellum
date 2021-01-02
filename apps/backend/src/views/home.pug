@@ -3,6 +3,9 @@ include components/tags
 
 
 style.
+  :root {}
+
+  .dark {}
 
   header {
     z-index: 50;
@@ -32,7 +35,6 @@ style.
     margin: 0;
     padding: 0;
     list-style: none;
-    flex-wrap: wrap;
     justify-content: center;
     display: grid;
     grid-gap: 1rem;
@@ -107,16 +109,16 @@ header
 .container
   +tags(tags)
 
-.container
-  ul.items
-    each item in items
-      li.item
-        a(href=item.url target="_blank")
-          .item-image
-            img(src=item.image)
-          .item-body
-            h3.item-title=item.title
-            p.item-description=item.description
-        footer
-          .item-tags
-            +tags(item.tags)
+//- .container
+//-   ul.items
+//-     each item in items
+//-       li.item
+//-         a(href=item.url target="_blank")
+//-           .item-image
+//-             img(src=item.image)
+//-           .item-body
+//-             h3.item-title=item.title
+//-             p.item-description=item.description
+//-         footer
+//-           .item-tags
+//-             +tags(item.tags)

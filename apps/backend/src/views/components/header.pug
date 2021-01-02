@@ -1,0 +1,71 @@
+style.
+  :root {
+    --header-background: rgba(255, 255, 255, 0.5);
+  }
+
+  .dark {
+    --header-background: rgba(17, 17, 17, 0.5);
+  }
+
+  header {
+    z-index: 50;
+    position: sticky;
+    top: 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+    background-color: var(--header-background);
+  }
+
+  header a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 700;
+  }
+
+  header .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  header .toolbar {
+    margin-left: auto;
+  }
+
+  header svg {
+    fill: currentColor;
+  }
+
+  .theme-toggle {
+    cursor: pointer;
+  }
+
+  .theme-toggle-light,
+  .dark .theme-toggle-dark {
+    display: none;
+  }
+
+  .dark .theme-toggle-light {
+    display: initial;
+  }
+
+header
+  .container
+    a(href="/") Vellum
+    .toolbar
+      .toolbar-item.theme-toggles
+        .theme-toggle.theme-toggle-dark
+          i(data-eva="bulb")
+        .theme-toggle.theme-toggle-light
+          i(data-eva="bulb-outline")
+
+script(type="text/javascript").
+  document.querySelectorAll('.theme-toggle')
+    .forEach(el => el.addEventListener('click', ev => {
+      if(document.body.classList.contains('dark')){
+        document.body.classList.remove('dark');
+      } else {
+        document.body.classList.add('dark');
+      }
+    }));

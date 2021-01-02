@@ -25,9 +25,9 @@ style.
   .items {
     display: grid;
     grid-auto-flow: row;
-    grid-gap: var(--grid-gap);
+    grid-gap: var(--items-grid-gap);
     justify-content: center;
-    grid-template-columns: repeat(var(--items-cols-xs), 1fr);
+    grid-template-columns: repeat(var(--items-cols), 1fr);
   }
 
   @media screen and (min-width: 600px){
@@ -42,7 +42,14 @@ style.
     }
   }
 
+  @media screen and (min-width: 1200px) {
+    .items {
+      --items-cols: var(--items-cols-lg);
+    }
+  }
+
   .items .item {
+    transition: all 0.3s;
     background: var(--item-background);
     box-shadow: var(--item-box-shadow);
     overflow: hidden;
@@ -66,7 +73,7 @@ style.
     position: absolute;
     top: 0;
     left: 0;
-    height: 1000%;
+    height: 100%;
     width: 100%;
     display: block;
     object-fit: var(--item-image-fit);
@@ -78,10 +85,12 @@ style.
   }
 
   .item-body .item-title {
+    color: var(--item-title-color);
     margin: 0 0 0.5rem 0;
   }
 
   .item-body .item-description {
+    color: var(--item-description-color);
     margin: 0;
   }
 

@@ -9,7 +9,13 @@ export const home = async (req: Request, res: Response) => {
   const sort = { createdAt: -1 };
 
   const tags = await Tag.find(query).sort(sort).limit(limit);
-  const items = await Referer.find(query)
+
+  const items = await Referer.find({
+    ...query,
+    title: { $exists: true, $ne: '' },
+    description: { $exists: true, $ne: '' },
+    image: { $exists: true, $ne: '' },
+  })
     .sort(sort)
     .limit(limit)
     .populate('tags');

@@ -11,7 +11,7 @@ export const scrape = async (url: string) => {
   };
 
   const getTitle = () => {
-    const el = $(`head title`, html);
+    const el = $(`title`, html);
     return el.text();
   };
 

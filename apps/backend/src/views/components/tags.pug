@@ -27,7 +27,9 @@ else
 
     .tags .tag {
       cursor: pointer;
+      text-decoration: none;
       display: flex;
+      user-select: none;
       align-items: center;
       transition: all 0.3s;
       font-weight: var(--tag-font-weight);
@@ -47,5 +49,8 @@ else
 mixin tags(tags)
   .tags
     each item in tags
-      .tag(class=tag ? (item.name === tag.name ? 'active' : '') : '')
-        span=item.name
+      +tag(item)
+
+mixin tag(item)
+  a.tag(href="/tags/" + item.name class=tag ? (item.name === tag.name ? 'active' : '') : '')
+    span=item.name

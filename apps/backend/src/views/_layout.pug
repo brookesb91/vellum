@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 html(lang="en")
   head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Vellum
+    include _head
   body
     style.
 
@@ -35,11 +33,13 @@ html(lang="en")
       .container {
         box-sizing: border-box;
         width: 100%;
-        margin: 0 auto;
         padding: 1rem;
       }
 
     block body
+      include components/tags
+      include components/feed
+      include components/header
     block scripts
       script(type="text/javascript").
         const initEva = () => eva.replace();

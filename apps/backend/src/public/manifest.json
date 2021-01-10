@@ -6,7 +6,7 @@
   "display": "standalone",
   "start_url": "./?utm_source=web_app_manifest",
   "short_name": "Vellum",
-  "theme_color": "#111",
+  "theme_color": "#fff",
   "description": "",
   "orientation": "any",
   "background_color": "#fff",
@@ -14,12 +14,12 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./assets/icon-192x192.png",
+      "src": "./icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./assets/icon-512x512.png",
+      "src": "./icons/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

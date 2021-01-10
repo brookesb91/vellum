@@ -4,6 +4,7 @@ style.
     --items-cols-sm: 2;
     --items-cols-md: 3;
     --items-cols-lg: 4;
+    --items-cols-xl: 5;
     --items-cols: var(--items-cols-xs);
     --items-grid-gap: 1rem;
     --item-background: #ecf0f3;
@@ -50,6 +51,12 @@ style.
   @media screen and (min-width: 1200px) {
     .items {
       --items-cols: var(--items-cols-lg);
+    }
+  }
+
+  @media screen and (min-width: 1920px){
+    .items {
+      --items-cols: var(--items-cols-xl);
     }
   }
 
@@ -122,7 +129,8 @@ style.
     margin: 0;
   }
 
-  .item-meta .item-favicon {
+  .item-meta .item-favicon,
+  .item-meta .item-secure {
     margin-right: 0.5rem;
   }
 
@@ -156,25 +164,24 @@ mixin feed(items)
 
 mixin feed-item(item)
   .item
-    a.item-link(href=item.url target="_blank")
+    a.item-link(href=item.url.full target="_blank")
       .item-image
-        img(src=item.image)
+        img(src=item.meta.image)
       .item-body
         .item-meta
           span
             span.item-favicon
-              img(src="https://" + new URL(item.url).host + "/favicon.ico")
-            span.item-name=item.name
+              img(src=item.url.protocol + "//" + item.url.host + "/favicon.ico")
+            span.item-name=item.meta.name
           span.item-url
-            if new URL(item.url).protocol === 'https:'
+            if item.url.protocol === 'https:'
               span.item-secure
-                i(data-eva="lock" data-eva-height="14")
-            span.item-host=new URL(item.url).host
-            - var pathname = new URL(item.url).pathname
-            if pathname && pathname !== '/'
-              span.item-path=new URL(item.url).pathname
-        h3.item-title=item.title
-        p.item-description=item.description
+                i(data-eva="lock" data-eva-height="14" data-eva-width="14")
+            span.item-host=item.url.host
+            if item.url.path && item.url.path !== '/'
+              span.item-path=item.url.path
+        h3.item-title=item.meta.title
+        p.item-description=item.meta.description
     .item-footer
       .item-tags
-        +tags(item.tags)
+        +tags(item.meta.tags)

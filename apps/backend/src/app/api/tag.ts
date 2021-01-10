@@ -14,14 +14,12 @@ export const tag = async (req: Request, res: Response) => {
   const sort = { createdAt: -1 };
 
   const items = await Referer.find({
-    title: { $exists: true, $ne: '' },
-    description: { $exists: true, $ne: '' },
-    image: { $exists: true, $ne: '' },
-    tags: { $in: result.id },
+    status: 'complete',
+    'meta.tags': { $in: result.id },
   })
     .sort(sort)
     .limit(limit)
-    .populate('tags');
+    .populate('meta.tags');
 
   return res.render('tag', {
     tag: result,

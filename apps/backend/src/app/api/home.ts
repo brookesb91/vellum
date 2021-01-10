@@ -12,13 +12,11 @@ export const home = async (req: Request, res: Response) => {
 
   const items = await Referer.find({
     ...query,
-    title: { $exists: true, $ne: '' },
-    description: { $exists: true, $ne: '' },
-    image: { $exists: true, $ne: '' },
+    status: 'complete',
   })
     .sort(sort)
     .limit(limit)
-    .populate('tags');
+    .populate('meta.tags');
 
   return res.render('home', {
     tags,

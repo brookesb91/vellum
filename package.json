@@ -45,6 +45,7 @@
     "@nrwl/node": "11.0.19",
     "@nrwl/tao": "11.0.19",
     "@nrwl/workspace": "11.0.19",
+    "@types/cheerio": "^0.22.23",
     "@types/express": "4.17.0",
     "@types/jest": "26.0.8",
     "@types/node": "12.12.38",

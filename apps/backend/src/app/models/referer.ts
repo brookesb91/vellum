@@ -2,23 +2,6 @@ import * as mongoose from 'mongoose';
 
 import { scrape } from '../infrastructure/scraper';
 
-// export interface RefererModel {
-//   id?: string;
-//   url: string;
-//   title?: string;
-//   description?: string;
-//   locale?: string;
-//   type?: string;
-//   image?: string;
-//   name?: string;
-//   tags?: string[];
-//   status?: string;
-//   publishedAt?: string;
-//   modifiedAt?: string;
-//   createdAt?: Date;
-//   updatedAt?: Date;
-// }
-
 export interface RefererModel {
   id?: string;
   url: {
@@ -52,16 +35,6 @@ interface RefererModelStatics extends mongoose.Model<RefererDocument> {
 
 const refererSchema = new mongoose.Schema<RefererDocument>(
   {
-    // title: { type: String },
-    // description: { type: String },
-    // locale: { type: String },
-    // type: { type: String },
-    // url: { type: String },
-    // image: { type: String },
-    // name: { type: String },
-    // tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
-    // modifiedAt: { type: Date },
-    // publishedAt: { type: Date },
     url: {
       full: { type: String },
       protocol: { type: String },
@@ -74,6 +47,7 @@ const refererSchema = new mongoose.Schema<RefererDocument>(
       locale: { type: String },
       type: { type: String },
       image: { type: String },
+      name: { type: String },
       tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
       modifiedAt: { type: mongoose.Schema.Types.Date },
       publishedAt: { type: mongoose.Schema.Types.Date },
@@ -129,8 +103,6 @@ refererSchema.statics.fromURL = async function (input: string) {
   }
 
   return ref;
-
-  // return new this({ meta, url: { protocol, host, path } });
 };
 
 export const Referer = mongoose.model<RefererDocument, RefererModelStatics>(

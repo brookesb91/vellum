@@ -1,5 +1,15 @@
 # Vellum
 
+## Embed
+
+```html
+<iframe
+  src="https://vellum.app/embed"
+  frameborder="0"
+  referrerpolicy="unsafe-url"
+></iframe>
+```
+
 ## Meta
 
 Vellum specific tags

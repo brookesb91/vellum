@@ -14,6 +14,7 @@ interface Meta {
   title: string;
   description: string;
   image: string;
+  favicon: string;
   type: string;
   locale: string;
   name: string;
@@ -56,6 +57,14 @@ const scrapers: Scrapers = [
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
+    name: 'favicon',
+    selector:
+      'link[rel="icon"][sizes="196x196"][href]' +
+      'link[rel="icon"][sizes="32x32"][href],' +
+      'link[rel="icon"][href]',
+    process: (el) => (el.length ? $(el).attr('href') : ''),
+  },
+  {
     name: 'type',
     selector: 'meta[property="og:type"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
@@ -72,7 +81,7 @@ const scrapers: Scrapers = [
   },
   {
     name: 'tags',
-    selector: 'meta[property="vellum:tags"][content]',
+    selector: 'meta[name="vellum:tags"][content]',
     process: (el): string[] =>
       el.length ? parseTags($(el).attr('content')) : [],
   },
@@ -101,36 +110,3 @@ export const scrape = async (url: string) => {
 
   return meta;
 };
-
-// OLD for ref
-// export const scrape = async (url: string) => {
-//   const html = await request(url);
-
-//   const getMetaContent = (selector: string) => {
-//     const el = $(`meta[${selector}][content]`, html);
-//     const content = el.attr('content') || '';
-//     return content;
-//   };
-
-//   const getTitle = () => {
-//     const el = $(`title`, html);
-//     return el.text();
-//   };
-
-//   return {
-//     title: getMetaContent('property="og:title"') || getTitle(),
-//     description:
-//       getMetaContent('property="og:description"') ||
-//       getMetaContent('name="Description"') ||
-//       getMetaContent('name="description"'),
-//     locale: getMetaContent('property="og:locale"'),
-//     type: getMetaContent('property="og:type"'),
-//     // url: getMetaContent('og:url'),
-//     image:
-//       getMetaContent('property="og:image"') ||
-//       getMetaContent('property="og:image:url"'),
-//     name: getMetaContent('property="og:site_name"'),
-//     publishedAt: getMetaContent('property="article:published_time"'),
-//     modifiedAt: getMetaContent('property="article:modified_time"'),
-//   };
-// };

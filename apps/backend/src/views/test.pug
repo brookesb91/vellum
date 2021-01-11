@@ -3,9 +3,16 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    //- Default
     title Test Article
     meta(name="description" content="This is a test description")
-    meta(property="og:title" content="Test Article")
+    //- Vellum
+    meta(name="vellum:title" content="Test Page")
+    meta(name="vellum:description" content="This is a test description")
+    meta(name="vellum:image" content="http://127.0.0.1:8080/images/logo.png")
+    meta(name="vellum:tags" content="vellum,test")
+    //- Graph
+    meta(property="og:title" content="Test Page")
     meta(property="og:description" content="This is a test description")
     meta(property="og:locale" content="en_gb")
     meta(property="og:type" content="article")
@@ -13,20 +20,9 @@ html(lang="en")
     meta(property="og:site_name" content="Vellum Test")
     meta(property="og:published_time" content=new Date().toISOString())
     meta(property="og:modified_time" content=new Date().toISOString())
-    //- og:locale
-    //- og:type
-    //- og:url
-    //- og:image
-    //- og:site_name
-    //- article:published_time
-    //- article:modified_time
-
-    //- link rel="amphtml" href=""
   body
 
     article
-      h1 Test Article
-      h4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis natus odit beatae laborum!
-      p Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure quibusdam nam voluptate nobis, adipisci ex quidem, consequuntur similique nostrum nemo assumenda quasi ipsa. Id culpa commodi, nihil nostrum nisi ut.
-      p Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat quidem eaque illum quasi aspernatur odio nam temporibus ea nulla iste quam molestiae corrupti obcaecati, repudiandae impedit dicta pariatur ex. Dolor.
-      iframe(src="http://127.0.0.1:8080/embed?tags=tag-1,tag-2,tag-4,another-tag", frameBorder="0", referrerpolicy="unsafe-url")
+      h1 Test Page
+      iframe(src="http://127.0.0.1:8080/embed", frameBorder="0", referrerpolicy="unsafe-url")
+      //- iframe(src="http://127.0.0.1:8080/embed?styles=http://127.0.0.1:8080/test/styles.css", frameBorder="0", referrerpolicy="unsafe-url")

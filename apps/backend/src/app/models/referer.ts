@@ -101,11 +101,15 @@ refererSchema.statics.fromURL = async function (input: string) {
       meta.tags[i] = tag.id;
     }
 
-    ref = await this.create({
-      meta,
-      url: { protocol, host, path, full: url.toString() },
-      scrapedAt: new Date(),
-    });
+    if (!ref) {
+      ref = await this.create({
+        meta,
+        url: { protocol, host, path, full: url.toString() },
+        scrapedAt: new Date(),
+      });
+    } else {
+      await ref.update({ meta, scrapedAt: new Date() });
+    }
   }
 
   return ref;

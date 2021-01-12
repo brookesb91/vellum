@@ -21,20 +21,20 @@ block append body
       each item in items
         tr
           td=item.id
-          td=item.name
-          td=item.type
-          td=item.title
-          td=item.description
+          td=item.meta.name
+          td=item.meta.type
+          td=item.meta.title
+          td=item.meta.description
           td
-            a(href=item.url target="_blank")=item.url
-          td=item.locale
+            a(href=item.url.full target="_blank")=item.url.full
+          td=item.meta.locale
           td
             ul
-              each tag in item.tags
+              each tag in item.meta.tags
                 li
                   a(href="tags/" + tag.name).tag=tag.name
           td=item.status
-          td=item.publishedAt? item.publishedAt.toLocaleString() : ''
-          td=item.modifiedAt? item.modifiedAt.toLocaleString() : ''
+          td=item.meta.publishedAt? item.meta.publishedAt.toLocaleString() : ''
+          td=item.meta.modifiedAt? item.meta.modifiedAt.toLocaleString() : ''
           td=item.createdAt.toLocaleString()
           td=item.updatedAt.toLocaleString()

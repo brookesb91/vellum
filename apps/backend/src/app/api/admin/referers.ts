@@ -8,7 +8,7 @@ export const referers = async (req: Request, res: Response) => {
   const query = {};
 
   const items = await Referer.find(query)
-    .populate('tags')
+    .populate('meta.tags')
     .skip(offset)
     .limit(limit);
   const total = await Referer.countDocuments(query);

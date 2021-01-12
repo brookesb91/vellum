@@ -59,7 +59,7 @@ const scrapers: Scrapers = [
     name: 'icon',
     selector:
       'meta[name="vellum:icon"][content],' +
-      'link[rel="icon"][sizes="196x196"][href]' +
+      'link[rel="icon"][sizes="196x196"][href],' +
       'link[rel="icon"][sizes="32x32"][href],' +
       'link[rel="icon"][href]',
     process: (el) => (el.length ? $(el).attr('href') : ''),

@@ -108,7 +108,10 @@ refererSchema.statics.fromURL = async function (input: string) {
         scrapedAt: new Date(),
       });
     } else {
-      await ref.update({ meta, scrapedAt: new Date() });
+      // await ref.update({ meta, scrapedAt: new Date() });
+      ref.meta = meta;
+      ref.scrapedAt = new Date();
+      await ref.save();
     }
   }
 

@@ -27,7 +27,7 @@ app.set('host', host);
 const server = app.listen(port, () => {
   console.log(`Listening at ${host}:${port}`);
 
-  mongoose.connect('mongodb://localhost/vellum');
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/vellum');
   mongoose.set('debug', true);
 });
 

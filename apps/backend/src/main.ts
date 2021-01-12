@@ -17,8 +17,8 @@ app.use(router);
 
 app.get('/test', (req, res) => res.render('test'));
 
-const port = process.env.port || 8080;
-const host = process.env.host || '0.0.0.0';
+const port = process.env.PORT || 8080;
+const host = process.env.HOST || '0.0.0.0';
 
 app.set('host', host);
 

@@ -14,9 +14,10 @@ interface Meta {
   title: string;
   description: string;
   image: string;
-  favicon: string;
+  icon: string;
   type: string;
   locale: string;
+  color: string;
   name: string;
   tags: string[];
   publishedAt: string;
@@ -30,14 +31,12 @@ const scrapers: Scrapers = [
       'meta[name="vellum:title"][content],' +
       'meta[property="og:title"][content],' +
       'title',
-    process: (el): string => {
-      console.log($(el));
-      return el.length
+    process: (el): string =>
+      el.length
         ? $(el).get(0).tagName === 'META'
           ? $(el).attr('content')
           : $(el).text()
-        : '';
-    },
+        : '',
   },
   {
     name: 'description',
@@ -57,8 +56,9 @@ const scrapers: Scrapers = [
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
-    name: 'favicon',
+    name: 'icon',
     selector:
+      'meta[name="vellum:icon"][content],' +
       'link[rel="icon"][sizes="196x196"][href]' +
       'link[rel="icon"][sizes="32x32"][href],' +
       'link[rel="icon"][href]',
@@ -66,17 +66,23 @@ const scrapers: Scrapers = [
   },
   {
     name: 'type',
-    selector: 'meta[property="og:type"][content]',
+    selector:
+      'meta[name="vellum:type"][content],' +
+      'meta[property="og:type"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
     name: 'locale',
-    selector: 'meta[property="og:locale"][content]',
+    selector:
+      'meta[name="vellum:locale"][content],' +
+      'meta[property="og:locale"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
     name: 'name',
-    selector: 'meta[property="og:site_name"][content]',
+    selector:
+      'meta[name="vellum:name"][content],' +
+      'meta[property="og:site_name"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
@@ -86,13 +92,24 @@ const scrapers: Scrapers = [
       el.length ? parseTags($(el).attr('content')) : [],
   },
   {
+    name: 'color',
+    selector:
+      'meta[name="vellum:color"][content],' +
+      'meta[name="theme-color"][content]',
+    process: (el): string => (el.length ? $(el).attr('content') : ''),
+  },
+  {
     name: 'publishedAt',
-    selector: 'meta[property="article:published_time"][content]',
+    selector:
+      'meta[name="vellum:published_at"][content],' +
+      'meta[property="article:published_time"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
   {
     name: 'modifiedAt',
-    selector: 'meta[property="article:modified_time"][content]',
+    selector:
+      'meta[name="vellum:modified_at"][content],' +
+      'meta[property="article:modified_time"][content]',
     process: (el): string => (el.length ? $(el).attr('content') : ''),
   },
 ];

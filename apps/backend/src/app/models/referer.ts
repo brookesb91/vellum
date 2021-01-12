@@ -47,11 +47,14 @@ const refererSchema = new mongoose.Schema<RefererDocument>(
       locale: { type: String },
       type: { type: String },
       image: { type: String },
+      icon: { type: String },
       name: { type: String },
+      color: { type: String },
       tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }],
       modifiedAt: { type: mongoose.Schema.Types.Date },
       publishedAt: { type: mongoose.Schema.Types.Date },
     },
+    scrapedAt: { type: mongoose.Schema.Types.Date },
     status: {
       type: String,
       default: function () {
@@ -82,7 +85,9 @@ refererSchema.statics.fromURL = async function (input: string) {
 
   let ref = await this.findOne({ 'url.full': url.toString() });
 
-  if (!ref) {
+  const shouldScrape = !ref || (ref && ref.status === 'pending');
+
+  if (shouldScrape) {
     const meta = await scrape(url.toString());
 
     for (let i = 0; i < meta.tags.length; i++) {
@@ -99,6 +104,7 @@ refererSchema.statics.fromURL = async function (input: string) {
     ref = await this.create({
       meta,
       url: { protocol, host, path, full: url.toString() },
+      scrapedAt: new Date(),
     });
   }
 

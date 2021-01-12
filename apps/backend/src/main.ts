@@ -18,11 +18,14 @@ app.use(router);
 app.get('/test', (req, res) => res.render('test'));
 
 const port = process.env.port || 8080;
+const host = process.env.host || '0.0.0.0';
 
-app.set('host', '192.168.1.69');
+app.set('host', host);
+
+// app.set('host', '192.168.1.69');
 
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  console.log(`Listening at ${host}:${port}`);
 
   mongoose.connect('mongodb://localhost/vellum');
   mongoose.set('debug', true);

@@ -1,13 +1,10 @@
 extends _layout
 
+mixin tag-list
+  .container
+    +tags(tags)
+
 block append body
-  //- Tags
-  .container
-    +tags(tags)
-
-  //- Feed
+  +tag-list
   +feed(items)
-
-    //- Tags
-  .container
-    +tags(tags)
+  +tag-list

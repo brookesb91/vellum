@@ -106,22 +106,15 @@ style.
     margin: 0;
   }
 
-  .item-meta, .item-meta > * {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
   .item-meta {
-    flex-wrap: wrap;
     font-size: 0.75rem;
     line-height: 0.75rem;
-    margin-bottom: 0.5rem;
   }
 
   .item-meta > *:not(:last-child)::after {
-    content:"\00b7";
+    content:"\26ac";
     margin: 0 0.25rem;
+    color: #999;
   }
 
   .item-meta .item-name {
@@ -129,12 +122,8 @@ style.
     margin: 0;
   }
 
-  .item-meta .item-favicon,
-  .item-meta .item-secure {
+  .item-icon img {
     margin-right: 0.5rem;
-  }
-
-  .item-meta .item-favicon img {
     height: 16px;
     width: auto;
   }
@@ -156,6 +145,10 @@ style.
     fill: currentColor;
   }
 
+  .item-tags {
+    margin-bottom: 0.5rem;
+  }
+
 mixin feed(items)
   .container
     .items
@@ -168,20 +161,26 @@ mixin feed-item(item)
       .item-image
         img(src=item.meta.image)
       .item-body
-        .item-meta
-          span
-            span.item-favicon
-              img(src=item.url.protocol + "//" + item.url.host + "/favicon.ico")
-            span.item-name=item.meta.name
-          span.item-url
-            if item.url.protocol === 'https:'
-              span.item-secure
-                i(data-eva="lock" data-eva-height="14" data-eva-width="14")
-            span.item-host=item.url.host
-            if item.url.path && item.url.path !== '/'
-              span.item-path=item.url.path
-        h3.item-title=item.meta.title
+        
+        h3.item-title
+          if item.meta.icon
+            span.item-icon
+              img(src=item.meta.icon)
+          span=item.meta.title
         p.item-description=item.meta.description
     .item-footer
       .item-tags
         +tags(item.meta.tags)
+      .item-meta
+
+          if item.url.protocol === 'https:'
+            span.item-secure
+              i(data-eva="lock" data-eva-height="14" data-eva-width="14")
+
+          if item.meta.name
+            span.item-name=item.meta.name
+
+          span.item-url
+            span.item-host=item.url.host
+            if item.url.path && item.url.path !== '/'
+              span.item-path=item.url.path

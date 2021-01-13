@@ -33,7 +33,7 @@ const scrapers: Scrapers = [
       'title',
     process: (el): string =>
       el.length
-        ? $(el).get(0).tagName === 'META'
+        ? $(el).get(0).tagName === 'meta'
           ? $(el).attr('content')
           : $(el).text()
         : '',
@@ -62,7 +62,12 @@ const scrapers: Scrapers = [
       'link[rel="icon"][sizes="196x196"][href],' +
       'link[rel="icon"][sizes="32x32"][href],' +
       'link[rel="icon"][href]',
-    process: (el) => (el.length ? $(el).attr('href') : ''),
+    process: (el) =>
+      el.length
+        ? $(el).get(0).tagName === 'meta'
+          ? $(el).attr('content')
+          : $(el).attr('href')
+        : '',
   },
   {
     name: 'type',

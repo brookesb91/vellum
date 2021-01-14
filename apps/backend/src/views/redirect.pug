@@ -1,0 +1,8 @@
+extends _layout
+
+block append meta
+  meta(http-equiv="refresh" content="3;URL='" + url + '"')
+
+block append body
+  h4 Redirecting you to #{url}
+  a(href=url) Take me there now!

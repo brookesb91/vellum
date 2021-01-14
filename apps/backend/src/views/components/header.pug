@@ -1,53 +1,54 @@
-style.
-  :root {
-    --header-background: rgba(255, 255, 255, 0.5);
-  }
+block append styles
+  style.
+    :root {
+      --header-background: rgba(255, 255, 255, 0.5);
+    }
 
-  .dark {
-    --header-background: rgba(17, 17, 17, 0.5);
-  }
+    .dark {
+      --header-background: rgba(17, 17, 17, 0.5);
+    }
 
-  header {
-    z-index: 50;
-    position: sticky;
-    top: 0;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: var(--header-background);
-  }
+    header {
+      z-index: 50;
+      position: sticky;
+      top: 0;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: var(--header-background);
+    }
 
-  header a {
-    text-decoration: none;
-    color: inherit;
-    font-weight: 700;
-  }
+    header a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 700;
+    }
 
-  header .container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
+    header .container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
 
-  header .toolbar {
-    margin-left: auto;
-  }
+    header .toolbar {
+      margin-left: auto;
+    }
 
-  header svg {
-    fill: currentColor;
-  }
+    header svg {
+      fill: currentColor;
+    }
 
-  .theme-toggle {
-    cursor: pointer;
-  }
+    .theme-toggle {
+      cursor: pointer;
+    }
 
-  .theme-toggle-light,
-  .dark .theme-toggle-dark {
-    display: none;
-  }
+    .theme-toggle-light,
+    .dark .theme-toggle-dark {
+      display: none;
+    }
 
-  .dark .theme-toggle-light {
-    display: initial;
-  }
+    .dark .theme-toggle-light {
+      display: initial;
+    }
 
 header
   .container
@@ -60,32 +61,33 @@ header
         .theme-toggle.theme-toggle-light(data-theme="light")
           i(data-eva="bulb-outline")
 
-script(type="text/javascript").
+block append scripts
+  script(type="text/javascript").
 
-  const Theme = {
-    backgrounds: {
-      default: '#ffffff',
-      dark: '#111',
-    },
-    get: function () {
-      return localStorage.getItem('theme');
-    },
-    set: function(name) {
-      localStorage.setItem('theme', name);
-      this.apply();
-    },
-    apply: function() {
-      const isDark = Theme.get() === 'dark';
-      document.body.classList.toggle('dark', isDark);
-      document.querySelector('meta[name="theme-color"]')
-        .setAttribute('content', isDark ? this.backgrounds.dark : this.backgrounds.default);
-    }
-  };
+    const Theme = {
+      backgrounds: {
+        default: '#ffffff',
+        dark: '#111',
+      },
+      get: function () {
+        return localStorage.getItem('theme');
+      },
+      set: function(name) {
+        localStorage.setItem('theme', name);
+        this.apply();
+      },
+      apply: function() {
+        const isDark = Theme.get() === 'dark';
+        document.body.classList.toggle('dark', isDark);
+        document.querySelector('meta[name="theme-color"]')
+          .setAttribute('content', isDark ? this.backgrounds.dark : this.backgrounds.default);
+      }
+    };
 
-  document.querySelectorAll('.theme-toggle')
-    .forEach(el => el.addEventListener('click', ev => {
-      const name = el.getAttribute('data-theme');
-      Theme.set(name);
-    }));
+    document.querySelectorAll('.theme-toggle')
+      .forEach(el => el.addEventListener('click', ev => {
+        const name = el.getAttribute('data-theme');
+        Theme.set(name);
+      }));
 
-  Theme.apply();
+    Theme.apply();

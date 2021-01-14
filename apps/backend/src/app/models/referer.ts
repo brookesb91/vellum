@@ -2,6 +2,8 @@ import * as mongoose from 'mongoose';
 
 import { scrape } from '../infrastructure/scraper';
 
+const REFRESH_SECONDS = 60 * 5;
+
 export interface RefererModel {
   id?: string;
   url: {
@@ -21,6 +23,7 @@ export interface RefererModel {
     modifiedAt?: Date;
   };
   status?: string;
+  scrapedAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -83,9 +86,17 @@ refererSchema.statics.fromURL = async function (input: string) {
   const url = new URL(input);
   const { protocol, host, pathname: path } = url;
 
-  let ref = await this.findOne({ 'url.full': url.toString() });
+  let ref: RefererDocument = await this.findOne({ 'url.full': url.toString() });
 
-  const shouldScrape = !ref || (ref && ref.status === 'pending');
+  const shouldScrape =
+    // Ref does not yet exist
+    !ref ||
+    // Ref is pending scrape - likely incomplete previous scrape attempt
+    (ref && ref.status === 'pending') ||
+    // Ref was scraped longer than `REFRESH_SECONDS` seconds ago - requires refresh
+    (ref &&
+      new Date().getTime() - new Date(ref.scrapedAt).getTime() >=
+        REFRESH_SECONDS);
 
   if (shouldScrape) {
     const meta = await scrape(url.toString());
@@ -108,8 +119,7 @@ refererSchema.statics.fromURL = async function (input: string) {
         scrapedAt: new Date(),
       });
     } else {
-      // await ref.update({ meta, scrapedAt: new Date() });
-      ref.meta = meta;
+      ref.meta = Object.assign(ref.meta, meta);
       ref.scrapedAt = new Date();
       await ref.save();
     }

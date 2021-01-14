@@ -1,1 +1,13 @@
-{ "extends": "../../.eslintrc.json", "ignorePatterns": ["!**/*"], "rules": {} }
+{
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["/public/*.js"],
+      "env": {
+        "browser": true
+      }
+    }
+  ]
+}

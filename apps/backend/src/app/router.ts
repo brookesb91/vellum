@@ -5,11 +5,13 @@ import { home } from './api/home';
 
 import { referers } from './api/admin/referers';
 import { tags } from './api/admin/tags';
+import { redirect } from './api/redirect';
 
 const router = Router();
 
 router.get('/', home);
 router.get('/embed', embed);
+router.get('/redirect', redirect);
 
 router.get('/admin', (req, res) => res.render('admin/index'));
 router.get('/admin/referers', referers);

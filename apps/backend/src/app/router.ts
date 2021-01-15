@@ -6,11 +6,13 @@ import { home } from './api/home';
 import { referers } from './api/admin/referers';
 import { tags } from './api/admin/tags';
 import { redirect } from './api/redirect';
+import { image } from './api/image';
 
 const router = Router();
 
 router.get('/', home);
 router.get('/embed', embed);
+router.get('/embed/image', image);
 router.get('/redirect', redirect);
 
 router.get('/admin', (req, res) => res.render('admin/index'));

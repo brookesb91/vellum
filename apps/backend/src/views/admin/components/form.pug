@@ -1,0 +1,25 @@
+mixin input(field)
+  input(name=field.name)&attributes(field.attrs || {})
+
+mixin textarea(field)
+  textarea(name=field.name)&attributes(field.attrs || {})
+
+mixin select(field)
+  select(name=field.name)&attributes(field.attrs || {})
+    each option in field.options
+      option(value=option.value)=option.label
+
+mixin dynamic-field(field)
+  fieldset
+    case field.type
+      when 'input'
+        +input(field)
+      when 'textarea'
+        +textarea(field)
+      when 'select'
+        +select(field)
+
+mixin dynamic-form(attrs, structure, data)
+  form&attributes(attrs)
+    each field in structure
+      +dynamic-field(field)

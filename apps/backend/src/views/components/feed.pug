@@ -214,8 +214,8 @@ mixin feed-item(item)
 
           if item.meta.name
             span.item-name=item.meta.name
-
-          span.item-url
-            span.item-host=item.url.host
-            if item.url.path && item.url.path !== '/'
-              span.item-path=item.url.path
+          else
+            span.item-url
+              span.item-host=item.url.host
+            //- if item.url.path && item.url.path !== '/'
+            //-   span.item-path=item.url.path

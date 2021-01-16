@@ -1,3 +1,9 @@
+block append styles
+  style.
+    label {
+      display: block;
+    }
+
 mixin input(field)
   input(name=field.name)&attributes(field.attrs || {})
 
@@ -11,6 +17,8 @@ mixin select(field)
 
 mixin dynamic-field(field)
   fieldset
+    if field.label
+      label(for=field.name)=field.label
     case field.type
       when 'input'
         +input(field)
@@ -19,7 +27,10 @@ mixin dynamic-field(field)
       when 'select'
         +select(field)
 
-mixin dynamic-form(attrs, structure, data)
+mixin dynamic-form(attrs, structure)
   form&attributes(attrs)
     each field in structure
       +dynamic-field(field)
+    fieldset
+      button(type="submit") Save
+      button(type="reset") Reset

@@ -1,6 +1,10 @@
 extends _layout
 
 block append body
+  nav
+    ul
+      li
+        a(href="/admin/referers/create") Create
   table
     thead
       tr
@@ -20,7 +24,8 @@ block append body
     tbody
       each item in items
         tr
-          td=item.id
+          td
+            a(href="/admin/referers/" + item.id)=item.id
           td=item.meta.name
           td=item.meta.type
           td=item.meta.title

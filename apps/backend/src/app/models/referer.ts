@@ -16,6 +16,7 @@ export interface RefererModel {
     description?: string;
     locale?: string;
     type?: string;
+    icon?: string;
     image?: string;
     name?: string;
     tags?: string[];
@@ -82,13 +83,15 @@ refererSchema.post('save', async function () {
   }
 });
 
-refererSchema.statics.fromURL = async function (input: string) {
+refererSchema.statics.fromURL = async function (input: string, force = false) {
   const url = new URL(input);
   const { protocol, host, pathname: path } = url;
 
   let ref: RefererDocument = await this.findOne({ 'url.full': url.toString() });
 
   const shouldScrape =
+    // Scrape is forced
+    force ||
     // Ref does not yet exist
     !ref ||
     // Ref is pending scrape - likely incomplete previous scrape attempt

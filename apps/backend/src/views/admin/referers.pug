@@ -21,6 +21,7 @@ block append body
         td Modified
         td Created At
         td Updated At
+        td Actions
     tbody
       each item in items
         tr
@@ -43,3 +44,7 @@ block append body
           td=item.meta.modifiedAt? item.meta.modifiedAt.toLocaleString() : ''
           td=item.createdAt.toLocaleString()
           td=item.updatedAt.toLocaleString()
+          td
+            each action in actions
+              form(method=action.method || "POST" action=`/admin/referers/${item.id}/${action.path}`)
+                button(type="submit")=action.name

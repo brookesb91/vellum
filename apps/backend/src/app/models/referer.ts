@@ -7,6 +7,7 @@ const REFRESH_SECONDS = 60 * 5;
 export interface RefererModel {
   id?: string;
   url: {
+    full: string;
     protocol: string;
     host: string;
     path: string;

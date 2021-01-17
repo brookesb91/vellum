@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { Referer, RefererModel } from '../../models/referer';
+
+import { Referer, RefererDocument, RefererModel } from '../../models/referer';
 
 const referers = async (req: Request, res: Response) => {
   const limit = parseInt(String(req.query['limit'])) || 10;
@@ -17,29 +18,25 @@ const referers = async (req: Request, res: Response) => {
     items,
     total,
     actions: [
-      { name: 'delete', method: 'DELETE' },
-      { name: 'scrape', method: 'POST', action: `scrape` },
+      { name: 'Delete', path: 'delete' },
+      { name: 'Scrape', path: 'scrape' },
     ],
   });
 };
 
 const createStructure = (data: Partial<RefererModel> = {}) => {
   return [
-    ...(data.id
-      ? [
-          {
-            label: 'ID',
-            type: 'input',
-            name: 'id',
-            attrs: {
-              type: 'text',
-              disabled: true,
-              readonly: true,
-              value: data.id,
-            },
-          },
-        ]
-      : []),
+    {
+      label: 'ID',
+      type: 'input',
+      name: 'id',
+      attrs: {
+        type: 'text',
+        disabled: true,
+        readonly: true,
+        value: data.id,
+      },
+    },
     {
       label: 'Title',
       type: 'input',
@@ -113,29 +110,68 @@ const referer = async (req: Request, res: Response) => {
 const create = async (req: Request, res: Response) => {
   return res.render('admin/editor', {
     attrs: { method: 'POST' },
-    structure: createStructure(),
+    structure: [
+      { label: 'URL', type: 'input', name: 'url', attrs: { type: 'text' } },
+    ],
   });
 };
 
 const save = async (req: Request, res: Response) => {
   // do stuff
+  let item: RefererDocument;
 
-  return res.redirect('/admin/referers');
+  if (typeof req.params['refererId'] !== 'undefined') {
+    item = await Referer.findById(req.params['refererId']);
+  } else if (typeof req.body['url'] !== 'undefined') {
+    item = await Referer.fromURL(req.body['url']);
+  }
+
+  if (!item) {
+    return res.redirect('/admin/referers');
+  }
+
+  const assign = (path: string, prop: string) => {
+    if (typeof req.body[path] !== 'undefined') {
+      item.meta[prop] = req.body[path];
+    }
+  };
+
+  const structure = createStructure();
+
+  structure.slice(1).forEach((field) => {
+    const path = field.name;
+    const prop = path.split('.')[1];
+    assign(path, prop);
+  });
+
+  await item.save();
+
+  return res.redirect(`/admin/referers/${item.id}`);
 };
 
 const remove = async (req: Request, res: Response) => {
-  const referer = await Referer.findById(req.params['refererId']);
+  const item = await Referer.findById(req.params['refererId']);
 
-  if (!referer) {
-    return res.redirect('/admin');
+  if (!item) {
+    return res.redirect('/admin/referers');
   }
 
-  await referer.remove();
+  await item.remove();
 
   return res.redirect('/admin/referers');
 };
 
-const scrape = async (req: Request, res: Response) => {};
+const scrape = async (req: Request, res: Response) => {
+  const item = await Referer.findById(req.params['refererId']);
+
+  if (!item) {
+    return res.redirect('/admin/referers');
+  }
+
+  const result = await Referer.fromURL(item.url.full);
+
+  return res.redirect('/admin/referers/' + result.id);
+};
 
 export const RefererController = {
   referers,

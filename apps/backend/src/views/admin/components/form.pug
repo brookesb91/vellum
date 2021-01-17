@@ -8,7 +8,7 @@ mixin input(field)
   input(name=field.name)&attributes(field.attrs || {})
 
 mixin textarea(field)
-  textarea(name=field.name)&attributes(field.attrs || {})
+  textarea(name=field.name)&attributes(field.attrs || {})=field.attrs.value
 
 mixin select(field)
   select(name=field.name)&attributes(field.attrs || {})

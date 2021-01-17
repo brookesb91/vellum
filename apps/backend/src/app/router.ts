@@ -21,7 +21,7 @@ router.get('/admin/referers/create', RefererController.create);
 router.get('/admin/referers/:refererId', RefererController.referer);
 router.post('/admin/referers/:refererId', RefererController.save);
 router.post('/admin/referers/:refererId/scrape', RefererController.scrape);
-router.delete('/admin/referers/:refererId', RefererController.remove);
+router.post('/admin/referers/:refererId/delete', RefererController.remove);
 
 router.get('/admin/tags', tags);
 

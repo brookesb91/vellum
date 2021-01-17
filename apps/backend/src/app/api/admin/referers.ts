@@ -3,6 +3,9 @@ import { Request, Response } from 'express';
 import { Referer, RefererDocument, RefererModel } from '../../models/referer';
 
 const referers = async (req: Request, res: Response) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+  console.log(ip);
   const limit = parseInt(String(req.query['limit'])) || 10;
   const offset = parseInt(String(req.query['offset'])) || 0;
 
@@ -120,10 +123,10 @@ const save = async (req: Request, res: Response) => {
   // do stuff
   let item: RefererDocument;
 
-  if (typeof req.params['refererId'] !== 'undefined') {
-    item = await Referer.findById(req.params['refererId']);
-  } else if (typeof req.body['url'] !== 'undefined') {
+  if (typeof req.body['url'] !== 'undefined') {
     item = await Referer.fromURL(req.body['url']);
+  } else if (typeof req.params['refererId'] !== 'undefined') {
+    item = await Referer.findById(req.params['refererId']);
   }
 
   if (!item) {

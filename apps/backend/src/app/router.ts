@@ -16,8 +16,10 @@ router.get('/embed/image', image);
 router.get('/redirect', redirect);
 
 router.get('/admin', (req, res) => res.render('admin/index'));
+
 router.get('/admin/referers', RefererController.referers);
 router.get('/admin/referers/create', RefererController.create);
+router.post('/admin/referers/create', RefererController.save);
 router.get('/admin/referers/:refererId', RefererController.referer);
 router.post('/admin/referers/:refererId', RefererController.save);
 router.post('/admin/referers/:refererId/scrape', RefererController.scrape);

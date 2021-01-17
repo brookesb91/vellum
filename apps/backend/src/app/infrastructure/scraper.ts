@@ -120,14 +120,17 @@ const scrapers: Scrapers = [
 ];
 
 export const scrape = async (url: string) => {
-  const html = await request(url);
+  const meta: Meta = { tags: [] } as Meta;
 
-  const meta: Meta = {} as Meta;
-
-  for (let i = 0; i < scrapers.length; i++) {
-    const scraper = scrapers[i];
-    const el = $(scraper.selector, html);
-    meta[scraper.name] = scraper.process(el);
+  try {
+    const html = await request(url);
+    for (let i = 0; i < scrapers.length; i++) {
+      const scraper = scrapers[i];
+      const el = $(scraper.selector, html);
+      meta[scraper.name] = scraper.process(el);
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return meta;

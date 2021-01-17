@@ -105,15 +105,17 @@ refererSchema.statics.fromURL = async function (input: string, force = false) {
   if (shouldScrape) {
     const meta = await scrape(url.toString());
 
-    for (let i = 0; i < meta.tags.length; i++) {
-      const doc = { name: meta.tags[i] };
-      let tag = await this.model('Tag').findOne(doc);
+    if (meta.tags) {
+      for (let i = 0; i < meta.tags.length; i++) {
+        const doc = { name: meta.tags[i] };
+        let tag = await this.model('Tag').findOne(doc);
 
-      if (!tag) {
-        tag = await this.model('Tag').create(doc);
+        if (!tag) {
+          tag = await this.model('Tag').create(doc);
+        }
+
+        meta.tags[i] = tag.id;
       }
-
-      meta.tags[i] = tag.id;
     }
 
     if (!ref) {

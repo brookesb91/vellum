@@ -41,6 +41,15 @@ const createStructure = (data: Partial<RefererModel> = {}) => {
       },
     },
     {
+      label: 'Name',
+      type: 'input',
+      name: 'meta.name',
+      attrs: {
+        type: 'text',
+        value: data.meta?.name || '',
+      },
+    },
+    {
       label: 'Title',
       type: 'input',
       name: 'meta.title',
@@ -92,6 +101,15 @@ const createStructure = (data: Partial<RefererModel> = {}) => {
       attrs: {
         type: 'text',
         value: data.meta?.icon || '',
+      },
+    },
+    {
+      label: 'Color',
+      type: 'input',
+      name: 'meta.color',
+      attrs: {
+        type: 'text',
+        value: data.meta?.color || '',
       },
     },
   ];

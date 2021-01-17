@@ -1,36 +1,33 @@
-block append styles
-  style.
-    label {
-      display: block;
-    }
-
 mixin input(field)
-  input(name=field.name)&attributes(field.attrs || {})
+  input.input(name=field.name)&attributes(field.attrs || {})
 
 mixin textarea(field)
-  textarea(name=field.name)&attributes(field.attrs || {})=field.attrs.value
+  textarea.textarea(name=field.name)&attributes(field.attrs || {})=field.attrs.value
 
 mixin select(field)
-  select(name=field.name)&attributes(field.attrs || {})
+  select.select(name=field.name)&attributes(field.attrs || {})
     each option in field.options
       option(value=option.value)=option.label
 
 mixin dynamic-field(field)
-  fieldset
-    if field.label
-      label(for=field.name)=field.label
-    case field.type
-      when 'input'
-        +input(field)
-      when 'textarea'
-        +textarea(field)
-      when 'select'
-        +select(field)
+  fieldset.field
+    .control
+      if field.label
+        label.label(for=field.name)=field.label
+      case field.type
+        when 'input'
+          +input(field)
+        when 'textarea'
+          +textarea(field)
+        when 'select'
+          +select(field)
 
 mixin dynamic-form(attrs, structure)
   form&attributes(attrs)
     each field in structure
       +dynamic-field(field)
-    fieldset
-      button(type="submit") Save
-      button(type="reset") Reset
+    fieldset.field.is-grouped
+      .control
+        button.button.is-success(type="submit") Save
+      .control
+        button.button(type="reset") Reset

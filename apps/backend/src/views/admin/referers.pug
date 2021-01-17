@@ -1,50 +1,54 @@
 extends _layout
 
+block append styles
+
 block append body
-  nav
-    ul
-      li
-        a(href="/admin/referers/create") Create
-  table
-    thead
-      tr
-        td ID
-        td Name
-        td Type
-        td Title
-        td Description
-        td URL
-        td Locale
-        td Tags
-        td Status
-        td Published
-        td Modified
-        td Created At
-        td Updated At
-        td Actions
-    tbody
-      each item in items
-        tr
-          td
-            a(href="/admin/referers/" + item.id)=item.id
-          td=item.meta.name
-          td=item.meta.type
-          td=item.meta.title
-          td=item.meta.description
-          td
-            a(href=item.url.full target="_blank")=item.url.full
-          td=item.meta.locale
-          td
-            ul
-              each tag in item.meta.tags
-                li
-                  a(href="tags/" + tag.name).tag=tag.name
-          td=item.status
-          td=item.meta.publishedAt? item.meta.publishedAt.toLocaleString() : ''
-          td=item.meta.modifiedAt? item.meta.modifiedAt.toLocaleString() : ''
-          td=item.createdAt.toLocaleString()
-          td=item.updatedAt.toLocaleString()
-          td
-            each action in actions
-              form(method=action.method || "POST" action=`/admin/referers/${item.id}/${action.path}`)
-                button(type="submit")=action.name
+  .section
+    .field.is-grouped
+      .control
+        a.button.is-link(href="/admin/referers/create") Create
+    .table-container
+      table.table.is-striped.is-bordered.is-hoverable.is-size-7
+        thead
+          tr
+            td ID
+            td Name
+            td Type
+            td Title
+            td Description
+            td URL
+            td Locale
+            td Tags
+            td Color
+            td Status
+            td Published
+            td Modified
+            td Created At
+            td Updated At
+            td Actions
+        tbody
+          each item in items
+            tr
+              td
+                a(href="/admin/referers/" + item.id)=item.id
+              td=item.meta.name
+              td=item.meta.type
+              td=item.meta.title
+              td=item.meta.description
+              td
+                a(href=item.url.full target="_blank")=item.url.full
+              td=item.meta.locale
+              td
+                .tags
+                  each tag in item.meta.tags
+                    a(href="tags/" + tag.name).tag=tag.name
+              td=item.meta.color
+              td=item.status
+              td=item.meta.publishedAt? item.meta.publishedAt.toLocaleString() : ''
+              td=item.meta.modifiedAt? item.meta.modifiedAt.toLocaleString() : ''
+              td=item.createdAt.toLocaleString()
+              td=item.updatedAt.toLocaleString()
+              td
+                each action in actions
+                  form(method=action.method || "POST" action=`/admin/referers/${item.id}/${action.path}`)
+                    button(type="submit").button.is-small=action.name

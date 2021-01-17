@@ -20,6 +20,8 @@ Vellum specific tags
 <!-- Page description -->
 <meta name="vellum:description" content="..." />
 <!-- Page image -->
+<!-- 56.25% ratio -->
+<!-- 1200px x 675px for best fit -->
 <meta name="vellum:image" content="..." />
 <!-- Page tags -->
 <meta name="vellum:tags" content="..." />

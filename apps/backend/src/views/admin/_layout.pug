@@ -1,27 +1,31 @@
-block styles
-  style.
-    table {
-      width: 100%;
-    }
+head
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css")
+  block styles
 
-    tr {
-      display: flex;
-    }
+body.has-navbar-fixed-top
+  //- nav(role="navigation")
+  //-   ul
+  //-     li
+  //-       a(href="/admin") Home
+  //-     li
+  //-       a(href="/admin/tags") Tags
+  //-     li
+  //-       a(href="/admin/referers") Referers
 
-    tr td {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      flex: 1;
-    }
+  nav.navbar.is-light.is-fixed-top
+    .navbar-brand
 
-nav(role="navigation")
-  ul
-    li
-      a(href="/admin") Home
-    li
-      a(href="/admin/tags") Tags
-    li
-      a(href="/admin/referers") Referers
+      a.navbar-item(href="/admin")
+        img(src="/images/logo@0,1x.png")
 
-block body
+      a.navbar-burger
+        span(aria-hidden="true")
+        span(aria-hidden="true")
+        span(aria-hidden="true")
+    .navbar-menu
+      .navbar-start
+        a.navbar-item(href="/admin/tags") Tags
+        a.navbar-item(href="/admin/referers") Referers
+
+  block body

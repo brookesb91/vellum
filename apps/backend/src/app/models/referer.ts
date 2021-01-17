@@ -19,6 +19,7 @@ export interface RefererModel {
     type?: string;
     icon?: string;
     image?: string;
+    color?: string;
     name?: string;
     tags?: string[];
     publishedAt?: Date;

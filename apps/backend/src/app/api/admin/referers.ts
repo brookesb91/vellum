@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { parseTags } from '../../infrastructure/parse-tags';
 
 import { Referer, RefererDocument, RefererModel } from '../../models/referer';
+import { Tag, TagModel } from '../../models/tag';
 
 const referers = async (req: Request, res: Response) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -23,6 +25,7 @@ const referers = async (req: Request, res: Response) => {
     actions: [
       { name: 'Delete', path: 'delete' },
       { name: 'Scrape', path: 'scrape' },
+      { name: 'Edit Tags', path: 'tags', method: 'GET' },
     ],
   });
 };
@@ -123,6 +126,7 @@ const referer = async (req: Request, res: Response) => {
   }
 
   return res.render('admin/editor', {
+    title: 'Referer',
     attrs: { method: 'POST' },
     structure: createStructure(item),
   });
@@ -130,6 +134,7 @@ const referer = async (req: Request, res: Response) => {
 
 const create = async (req: Request, res: Response) => {
   return res.render('admin/editor', {
+    title: 'New Referer',
     attrs: { method: 'POST' },
     structure: [
       { label: 'URL', type: 'input', name: 'url', attrs: { type: 'text' } },
@@ -194,6 +199,50 @@ const scrape = async (req: Request, res: Response) => {
   return res.redirect('/admin/referers/' + result.id);
 };
 
+const editTags = async (req: Request, res: Response) => {
+  const ref = await Referer.findById(req.params['refererId']).populate(
+    'meta.tags'
+  );
+
+  return res.render('admin/editor', {
+    attrs: { method: 'POST' },
+    structure: [
+      {
+        label: 'Tags',
+        type: 'input',
+        name: 'tags',
+        attrs: {
+          type: 'text',
+          value: (<TagModel[]>ref.meta.tags).map((t) => t.name).join(', '),
+        },
+      },
+    ],
+  });
+};
+
+const updateTags = async (req: Request, res: Response) => {
+  const ref = await Referer.findById(req.params['refererId']);
+  console.log('Tags is ', typeof req.body['tags']);
+  const parsed = parseTags(req.body['tags'] || '');
+  const ids = [];
+
+  for (let i = 0; i < parsed.length; i++) {
+    const doc = { name: parsed[i] };
+
+    let tag = await Tag.findOne(doc);
+
+    if (!tag) {
+      tag = await Tag.create(doc);
+    }
+    ids.push(tag.id);
+  }
+
+  ref.meta.tags = ids;
+  await ref.save();
+
+  return res.redirect(`/admin/referers/` + ref.id);
+};
+
 export const RefererController = {
   referers,
   referer,
@@ -201,4 +250,6 @@ export const RefererController = {
   save,
   remove,
   scrape,
+  editTags,
+  updateTags,
 };

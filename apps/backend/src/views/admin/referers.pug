@@ -4,6 +4,7 @@ block append styles
 
 block append body
   .section
+    h1.title Referers
     .field.is-grouped
       .control
         a.button.is-link(href="/admin/referers/create") Create
@@ -42,7 +43,7 @@ block append body
                 .tags
                   each tag in item.meta.tags
                     a(href="tags/" + tag.name).tag=tag.name
-              td=item.meta.color
+              td(style=`background-color: ${item.meta.color};`)=item.meta.color
               td=item.status
               td=item.meta.publishedAt? item.meta.publishedAt.toLocaleString() : ''
               td=item.meta.modifiedAt? item.meta.modifiedAt.toLocaleString() : ''

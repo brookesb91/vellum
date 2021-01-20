@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 import { scrape } from '../infrastructure/scraper';
+import { TagModel } from './tag';
 
 const REFRESH_SECONDS = 60 * 5;
 
@@ -21,7 +22,7 @@ export interface RefererModel {
     image?: string;
     color?: string;
     name?: string;
-    tags?: string[];
+    tags?: string[] | TagModel[];
     publishedAt?: Date;
     modifiedAt?: Date;
   };

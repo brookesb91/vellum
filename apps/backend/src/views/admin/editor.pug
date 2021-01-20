@@ -4,4 +4,6 @@ include components/form
 block append body
   .section
     .container
+      if title
+        h1.title=title
       +dynamic-form(attrs, structure)

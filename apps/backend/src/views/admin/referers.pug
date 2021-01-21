@@ -7,7 +7,7 @@ block append body
     h1.title Referers
     .field.is-grouped
       .control
-        a.button.is-link(href="/admin/referers/create") Create
+        a.button.is-link(href="referers/create") Create
     .table-container
       table.table.is-striped.is-bordered.is-hoverable.is-size-7
         thead
@@ -31,7 +31,7 @@ block append body
           each item in items
             tr
               td
-                a(href="/admin/referers/" + item.id)=item.id
+                a(href="referers/" + item.id)=item.id
               td=item.meta.name
               td=item.meta.type
               td=item.meta.title
@@ -51,5 +51,5 @@ block append body
               td=item.updatedAt.toLocaleString()
               td
                 each action in actions
-                  form(method=action.method || "POST" action=`/admin/referers/${item.id}/${action.path}`)
+                  form(method=action.method || "POST" action=`referers/${item.id}/${action.path}`)
                     button(type="submit").button.is-small=action.name

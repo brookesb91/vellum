@@ -4,6 +4,11 @@ import { parseTags } from '../../infrastructure/parse-tags';
 import { Referer, RefererDocument, RefererModel } from '../../models/referer';
 import { Tag, TagModel } from '../../models/tag';
 
+// TODO Move to config
+const password = process.env.PASSWORD || 'mw5RbBZZuNcgXNY';
+
+const route = (path: string) => `/admin/${password}/${path}`;
+
 const referers = async (req: Request, res: Response) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -122,7 +127,7 @@ const referer = async (req: Request, res: Response) => {
   const item = await Referer.findById(req.params['refererId']);
 
   if (!item) {
-    return res.redirect('/admin');
+    return res.redirect(route(''));
   }
 
   return res.render('admin/editor', {
@@ -153,7 +158,7 @@ const save = async (req: Request, res: Response) => {
   }
 
   if (!item) {
-    return res.redirect('/admin/referers');
+    return res.redirect(route('referers'));
   }
 
   const assign = (path: string, prop: string) => {
@@ -179,24 +184,24 @@ const remove = async (req: Request, res: Response) => {
   const item = await Referer.findById(req.params['refererId']);
 
   if (!item) {
-    return res.redirect('/admin/referers');
+    return res.redirect(route('referers'));
   }
 
   await item.remove();
 
-  return res.redirect('/admin/referers');
+  return res.redirect(route('referers'));
 };
 
 const scrape = async (req: Request, res: Response) => {
   const item = await Referer.findById(req.params['refererId']);
 
   if (!item) {
-    return res.redirect('/admin/referers');
+    return res.redirect(route('referers'));
   }
 
   const result = await Referer.fromURL(item.url.full);
 
-  return res.redirect('/admin/referers/' + result.id);
+  return res.redirect(route('referers/' + result.id));
 };
 
 const editTags = async (req: Request, res: Response) => {
@@ -222,7 +227,6 @@ const editTags = async (req: Request, res: Response) => {
 
 const updateTags = async (req: Request, res: Response) => {
   const ref = await Referer.findById(req.params['refererId']);
-  console.log('Tags is ', typeof req.body['tags']);
   const parsed = parseTags(req.body['tags'] || '');
   const ids = [];
 
@@ -240,7 +244,7 @@ const updateTags = async (req: Request, res: Response) => {
   ref.meta.tags = ids;
   await ref.save();
 
-  return res.redirect(`/admin/referers/` + ref.id);
+  return res.redirect(route('referers/' + ref.id));
 };
 
 export const RefererController = {

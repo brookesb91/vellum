@@ -17,18 +17,32 @@ router.get('/embed/image', image);
 router.get('/redirect', redirect);
 
 // Admin
+const password = process.env.ADMIN_PASSWORD || 'mw5RbBZZuNcgXNY';
+
 router.get('/admin', (req, res) => res.render('admin/index'));
 
-router.get('/admin/referers', RefererController.referers);
-router.get('/admin/referers/create', RefererController.create);
-router.post('/admin/referers/create', RefererController.save);
-router.get('/admin/referers/:refererId', RefererController.referer);
-router.post('/admin/referers/:refererId', RefererController.save);
-router.get('/admin/referers/:refererId/tags', RefererController.editTags);
-router.post('/admin/referers/:refererId/tags', RefererController.updateTags);
-router.post('/admin/referers/:refererId/scrape', RefererController.scrape);
-router.post('/admin/referers/:refererId/delete', RefererController.remove);
+router.get(`/admin/${password}/referers`, RefererController.referers);
+router.get(`/admin/${password}/referers/create`, RefererController.create);
+router.post(`/admin/${password}/referers/create`, RefererController.save);
+router.get(`/admin/${password}/referers/:refererId`, RefererController.referer);
+router.post(`/admin/${password}/referers/:refererId`, RefererController.save);
+router.get(
+  `/admin/${password}/referers/:refererId/tags`,
+  RefererController.editTags
+);
+router.post(
+  `/admin/${password}/referers/:refererId/tags`,
+  RefererController.updateTags
+);
+router.post(
+  `/admin/${password}/referers/:refererId/scrape`,
+  RefererController.scrape
+);
+router.post(
+  `/admin/${password}/referers/:refererId/delete`,
+  RefererController.remove
+);
 
-router.get('/admin/tags', tags);
+router.get(`/admin/${password}/tags`, tags);
 
 export default router;

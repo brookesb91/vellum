@@ -84,3 +84,7 @@ Tags have the following markup
 | Name                     | `meta[name="vellum:name"][content]`        | Page site name   | `meta[property="og:site_name"][content]`                                                                         |
 | Tags                     | `meta[name="vellum:tags"][content]`        | Page tags        | _(No fallback)_                                                                                                  |
 | Color                    | `meta[name="vellum:color"][content]`       | Page theme color | `meta[name="theme-color"][content]`                                                                              |
+
+## Recommendations
+
+> TODO

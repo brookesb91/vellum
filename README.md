@@ -1,6 +1,6 @@
 # Vellum
 
-## Embed
+## Example Embed
 
 ```html
 <iframe
@@ -10,24 +10,7 @@
 ></iframe>
 ```
 
-## Meta
-
-Vellum specific tags
-
-```html
-<!-- Page title -->
-<meta name="vellum:title" content="..." />
-<!-- Page description -->
-<meta name="vellum:description" content="..." />
-<!-- Page image -->
-<!-- 56.25% ratio -->
-<!-- 1200px x 675px for best fit -->
-<meta name="vellum:image" content="..." />
-<!-- Page tags -->
-<meta name="vellum:tags" content="..." />
-```
-
-Example
+## Example Meta
 
 ```html
 <meta name="vellum:title" content="Skribul" />
@@ -36,10 +19,16 @@ Example
 <meta name="vellum:tags" content="web-app,drawing,social" />
 ```
 
-### Selectors
+### What is scraped?
 
-Title - `meta[name="vellum:title"][content], meta[property="og:title"][content], title`
-
-Description - `meta[name="vellum:description"][content], meta[property="og:description"][content], meta[name="Description"][content], meta[name="description"][content]`
-
-Image - `meta[name="vellum:image"], meta[property="og:image:url"], meta[property="og:image]`
+| Name        | Selector                                   | Description      | Fallbacks                                                                                                        |
+| ----------- | ------------------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Title       | `meta[name="vellum:title"][content]`       | Page title       | `meta[property="og:title"][content], title`                                                                      |
+| Description | `meta[name="vellum:description"][content]` | Page description | `meta[property="og:description"][content], meta[name="Description"][content], meta[name="description"][content]` |
+| Image       | `meta[name="vellum:image"][content]`       | Page image       | `meta[property="og:image:url"][content], meta[property="og:image"][content]`                                     |
+| Icon        | `meta[name="vellum:icon"][content]`        | Page icon        | `link[rel="icon"][sizes="196x196"][href], link[rel="icon"][sizes="32x32"][href], link[rel="icon"][href]`         |
+| Type        | `meta[name="vellum:type"][content]`        | Page type        | `meta[property="og:type"][content]`                                                                              |
+| Locale      | `meta[name="vellum:locale"][content]`      | Page locale      | `meta[property="og:locale"][content]`                                                                            |
+| Name        | `meta[name="vellum:name"][content]`        | Page site name   | `meta[property="og:site_name"][content]`                                                                         |
+| Tags        | `meta[name="vellum:tags"][content]`        | Page tags        |                                                                                                                  |
+| Color       | `meta[name="vellum:color"][content]`       | Page theme color | `meta[name="theme-color"][content]`                                                                              |

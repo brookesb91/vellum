@@ -148,7 +148,6 @@ const create = async (req: Request, res: Response) => {
 };
 
 const save = async (req: Request, res: Response) => {
-  // do stuff
   let item: RefererDocument;
 
   if (typeof req.body['url'] !== 'undefined') {

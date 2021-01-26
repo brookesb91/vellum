@@ -13,6 +13,8 @@ Or deploy your own
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+> Heroku no longer provides a free MongoDB addon tier so the deployment will require a database to be set-up for the environment and for the `MONGODB_URI` variable to be set.
+
 ## Introduction
 
 > TODO

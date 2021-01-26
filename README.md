@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo@0,1x.png" />
+  <img src="assets/logo@0,25x.png" />
 </p>
 
 <h2 align="center">Vellum</h2>

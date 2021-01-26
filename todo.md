@@ -5,3 +5,5 @@
 - View counts
 - Split backend / frontend to separate apps
 - Pagination
+- Maximum tags
+- Admin router refactor

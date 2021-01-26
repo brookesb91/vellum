@@ -1,11 +1,11 @@
 import { app } from './app';
 import { connectDB } from './app/infrastructure/connect-db';
+import { config } from './app/config';
 
-const host = process.env.HOST || '0.0.0.0';
-const port = process.env.PORT || 8080;
+const host = config.get('host');
+const port = config.get('port');
 
 app.set('host', host);
-// app.set('port', port);
 
 try {
   app

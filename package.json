@@ -50,6 +50,8 @@
     "@nrwl/tao": "11.0.19",
     "@nrwl/workspace": "11.0.19",
     "@types/cheerio": "^0.22.23",
+    "@types/convict": "^5.2.2",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "4.17.0",
     "@types/jest": "26.0.8",
     "@types/mongoose": "^5.10.3",

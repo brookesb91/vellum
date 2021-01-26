@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as path from 'path';
 
-import router from './router';
+import { router } from './api';
 
 const app = express();
 
@@ -14,6 +14,6 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.use(router);
 
-app.get('/test', (req, res) => res.render('test'));
+// app.get('/test', (req, res) => res.render('test'));
 
 export { app };

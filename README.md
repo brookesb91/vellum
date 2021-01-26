@@ -1,4 +1,8 @@
-# Vellum
+<p align="center">
+  <img src="assets/logo@0,1x.png" />
+</p>
+
+<h1>Vellum</h1>
 
 ## Example Embed
 

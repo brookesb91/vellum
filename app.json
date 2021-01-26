@@ -1,0 +1,12 @@
+{
+  "name": "Vellum",
+  "description": "Webrings: Reborn",
+  "repository": "https://github.com/brookesb91/vellum",
+  "logo": "https://raw.githubusercontent.com/brookesb91/vellum/master/assets/logo.png?raw=true",
+  "keywords": [
+    "node",
+    "express",
+    "typescript",
+    "pwa"
+  ]
+}

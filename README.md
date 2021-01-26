@@ -82,5 +82,5 @@ Tags have the following markup
 | Type                     | `meta[name="vellum:type"][content]`        | Page type        | `meta[property="og:type"][content]`                                                                              |
 | Locale                   | `meta[name="vellum:locale"][content]`      | Page locale      | `meta[property="og:locale"][content]`                                                                            |
 | Name                     | `meta[name="vellum:name"][content]`        | Page site name   | `meta[property="og:site_name"][content]`                                                                         |
-| Tags                     | `meta[name="vellum:tags"][content]`        | Page tags        |                                                                                                                  |
+| Tags                     | `meta[name="vellum:tags"][content]`        | Page tags        | _(No fallback)_                                                                                                  |
 | Color                    | `meta[name="vellum:color"][content]`       | Page theme color | `meta[name="theme-color"][content]`                                                                              |

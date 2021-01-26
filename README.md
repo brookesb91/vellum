@@ -2,9 +2,22 @@
   <img src="assets/logo@0,1x.png" />
 </p>
 
-<h1>Vellum</h1>
+<h2 align="center">Vellum</h2>
+<h4 align="center">Webrings: Reborn</h4>
 
-## Example Embed
+---
+
+## Introduction
+
+> TODO
+
+## For Webmasters
+
+### Quick Set-Up
+
+Add the Vellum iframe to your page.
+
+> `referrerpolicy` **must** be set to `unsafe-url`
 
 ```html
 <iframe
@@ -14,7 +27,7 @@
 ></iframe>
 ```
 
-## Example Meta
+Add the required meta information to your page head.
 
 ```html
 <meta name="vellum:title" content="Skribul" />
@@ -23,7 +36,11 @@
 <meta name="vellum:tags" content="web-app,drawing,social" />
 ```
 
-### What is scraped?
+### Advanced Set-Up
+
+> TODO
+
+## Meta Reference
 
 | Name        | Selector                                   | Description      | Fallbacks                                                                                                        |
 | ----------- | ------------------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------- |

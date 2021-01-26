@@ -87,17 +87,17 @@ Tags have the following markup
 
 > Items marked as **required** are required as a minimum to show your page on Vellum's aggregated feed.
 
-| Name                     | Selector                                   | Description      | Fallbacks                                                                                                        |
-| ------------------------ | ------------------------------------------ | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Title _(required)_       | `meta[name="vellum:title"][content]`       | Page title       | `meta[property="og:title"][content], title`                                                                      |
-| Description _(required)_ | `meta[name="vellum:description"][content]` | Page description | `meta[property="og:description"][content], meta[name="Description"][content], meta[name="description"][content]` |
-| Image _(required)_       | `meta[name="vellum:image"][content]`       | Page image       | `meta[property="og:image:url"][content], meta[property="og:image"][content]`                                     |
-| Icon                     | `meta[name="vellum:icon"][content]`        | Page icon        | `link[rel="icon"][sizes="196x196"][href], link[rel="icon"][sizes="32x32"][href], link[rel="icon"][href]`         |
-| Type                     | `meta[name="vellum:type"][content]`        | Page type        | `meta[property="og:type"][content]`                                                                              |
-| Locale                   | `meta[name="vellum:locale"][content]`      | Page locale      | `meta[property="og:locale"][content]`                                                                            |
-| Name                     | `meta[name="vellum:name"][content]`        | Page site name   | `meta[property="og:site_name"][content]`                                                                         |
-| Tags                     | `meta[name="vellum:tags"][content]`        | Page tags        | _(No fallback)_                                                                                                  |
-| Color                    | `meta[name="vellum:color"][content]`       | Page theme color | `meta[name="theme-color"][content]`                                                                              |
+| Name                     | Selector                                   | Description        | Fallbacks                                                                                                        |
+| ------------------------ | ------------------------------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Title _(required)_       | `meta[name="vellum:title"][content]`       | Page title         | `meta[property="og:title"][content], title`                                                                      |
+| Description _(required)_ | `meta[name="vellum:description"][content]` | Page description   | `meta[property="og:description"][content], meta[name="Description"][content], meta[name="description"][content]` |
+| Image _(required)_       | `meta[name="vellum:image"][content]`       | Page image         | `meta[property="og:image:url"][content], meta[property="og:image"][content]`                                     |
+| Icon                     | `meta[name="vellum:icon"][content]`        | Page icon          | `link[rel="icon"][sizes="196x196"][href], link[rel="icon"][sizes="32x32"][href], link[rel="icon"][href]`         |
+| Type                     | `meta[name="vellum:type"][content]`        | Page type          | `meta[property="og:type"][content]`                                                                              |
+| Locale                   | `meta[name="vellum:locale"][content]`      | Page locale        | `meta[property="og:locale"][content]`                                                                            |
+| Name                     | `meta[name="vellum:name"][content]`        | Page site name     | `meta[property="og:site_name"][content]`                                                                         |
+| Tags                     | `meta[name="vellum:tags"][content]`        | Page tags (Max 10) | _(No fallback)_                                                                                                  |
+| Color                    | `meta[name="vellum:color"][content]`       | Page theme color   | `meta[name="theme-color"][content]`                                                                              |
 
 ## Recommendations
 

@@ -3,11 +3,12 @@ import { parseTags } from '../../infrastructure/parse-tags';
 
 import { Referer, RefererDocument, RefererModel } from '../../models/referer';
 import { Tag, TagModel } from '../../models/tag';
+import { config } from '../../config';
 
 // TODO Move to config
-const password = process.env.PASSWORD || 'mw5RbBZZuNcgXNY';
+const key = config.get('admin_key');
 
-const route = (path: string) => `/admin/${password}/${path}`;
+const route = (path: string) => `/admin/${key}/${path}`;
 
 const referers = async (req: Request, res: Response) => {
   var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -176,7 +177,7 @@ const save = async (req: Request, res: Response) => {
 
   await item.save();
 
-  return res.redirect(`/admin/referers/${item.id}`);
+  return res.redirect(route(`referers/${item.id}`));
 };
 
 const remove = async (req: Request, res: Response) => {

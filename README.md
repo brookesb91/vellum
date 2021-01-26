@@ -40,7 +40,34 @@ Add the required meta information to your page head.
 
 ### Advanced Set-Up
 
-> TODO
+#### Custom CSS
+
+Append the `styles` query parameter to link your custom CSS.
+
+```html
+<iframe
+  src="https://vellum-app.herokuapp.com/embed?styles=https://my.custom.site/styles.css"
+  frameborder="0"
+  referrerpolicy="unsafe-url"
+></iframe>
+```
+
+Tags have the following markup
+
+```html
+<!-- Tags root -->
+<div class="tags">
+  <!-- Each tag has a class the same as its name -->
+  <!-- Passive tag -->
+  <a class="tag social">
+    <span>social</span>
+  </a>
+  <!-- Active tag -->
+  <a class="tag education active">
+    <span>education</span>
+  </a>
+</div>
+```
 
 ## Meta Reference
 

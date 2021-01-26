@@ -34,5 +34,20 @@ export const config = convict({
     doc: 'Database URI',
     format: String,
     default: 'mongodb://localhost/vellum',
+    env: 'MONGODB_URI',
+  },
+  referer: {
+    tag_limit: {
+      doc: 'Maximum number of tags processed from meta',
+      format: Number,
+      default: 10,
+      env: 'REFERER_TAG_LIMIT',
+    },
+    refresh_seconds: {
+      doc: 'Minimum time in seconds before a new scrape is made',
+      format: Number,
+      default: 60 * 5,
+      env: 'REFERER_REFRESH_SECONDS',
+    },
   },
 });

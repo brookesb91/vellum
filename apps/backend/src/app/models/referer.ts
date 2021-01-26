@@ -3,7 +3,10 @@ import * as mongoose from 'mongoose';
 import { scrape } from '../infrastructure/scraper';
 import { TagModel } from './tag';
 
-const REFRESH_SECONDS = 60 * 5;
+import { config } from '../config';
+
+const REFRESH_SECONDS = config.get('referer.refresh_seconds');
+const TAG_LIMIT = config.get('referer.tag_limit');
 
 export interface RefererModel {
   id?: string;
@@ -108,8 +111,10 @@ refererSchema.statics.fromURL = async function (input: string, force = false) {
     const meta = await scrape(url.toString());
 
     if (meta.tags) {
-      for (let i = 0; i < meta.tags.length; i++) {
-        const doc = { name: meta.tags[i] };
+      const tags = meta.tags.slice(0, TAG_LIMIT);
+
+      for (let i = 0; i < tags.length; i++) {
+        const doc = { name: tags[i] };
         let tag = await this.model('Tag').findOne(doc);
 
         if (!tag) {

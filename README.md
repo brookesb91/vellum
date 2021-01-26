@@ -17,7 +17,7 @@ Or deploy your own
 
 > TODO
 
-## For Webmasters
+## :globe_with_meridians: For Webmasters
 
 ### :rocket: Quick Set-Up
 
@@ -72,6 +72,10 @@ Tags have the following markup
   </a>
 </div>
 ```
+
+## :octocat: For Developers
+
+> TODO
 
 ## :book: Meta Reference
 

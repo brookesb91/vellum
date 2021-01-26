@@ -19,7 +19,7 @@ Or deploy your own
 
 ## For Webmasters
 
-### Quick Set-Up
+### :rocket: Quick Set-Up
 
 Add the Vellum iframe to your page.
 
@@ -42,9 +42,9 @@ Add the required meta information to your page head.
 <meta name="vellum:tags" content="web-app,drawing,social" />
 ```
 
-### Advanced Set-Up
+### :wrench: Advanced Set-Up
 
-#### Custom CSS
+#### :art: Custom CSS
 
 Append the `styles` query parameter to link your custom CSS.
 
@@ -73,7 +73,7 @@ Tags have the following markup
 </div>
 ```
 
-## Meta Reference
+## :book: Meta Reference
 
 > Items marked as **required** are required as a minimum to show your page on Vellum's aggregated feed.
 

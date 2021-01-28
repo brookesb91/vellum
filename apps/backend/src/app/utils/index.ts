@@ -1,3 +1,5 @@
+export * from './paginate';
+
 export function resolvePath(
   path: string | string[],
   obj: any,

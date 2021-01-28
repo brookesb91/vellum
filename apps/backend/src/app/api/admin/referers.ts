@@ -4,6 +4,7 @@ import { parseTags } from '../../infrastructure/parse-tags';
 import { Referer, RefererDocument, RefererModel } from '../../models/referer';
 import { Tag, TagModel } from '../../models/tag';
 import { config } from '../../config';
+import { paginate } from '../../utils';
 
 // TODO Move to config
 const key = config.get('admin_key');

@@ -24,8 +24,6 @@ export const home = async (req: Request, res: Response) => {
     query['meta.tags'] = { $in: [tag.id] };
   }
 
-  const tags = await Tag.find({}).sort({ createdAt: -1 }).limit(TAG_LIMIT);
-
   const items = await Referer.find(query)
     .sort({ createdAt: -1 })
     .limit(ITEM_LIMIT)
@@ -33,6 +31,17 @@ export const home = async (req: Request, res: Response) => {
     .populate('meta.tags');
 
   const total = await Referer.countDocuments(query);
+
+  const tagsQuery = {};
+
+  if (tag) {
+    const tagIds = await Referer.distinct('meta.tags', query);
+    tagsQuery['_id'] = { $in: tagIds };
+  }
+
+  const tags = await Tag.find(tagsQuery)
+    .sort({ createdAt: -1 })
+    .limit(TAG_LIMIT);
 
   const pagination = {
     page,
